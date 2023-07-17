@@ -11,7 +11,8 @@ from ...core.message import (
 class NewSetTags(IntEnum):
     power = 0x0100
     lock = 0x0201
-    heat_start = 0x0400 # 这里实际使用的是 "heat" 控制
+    heat_start = 0x0405
+    heat_start_preservation = 0x0400 # 这里实际使用的是 "heat" 控制
 
 
 class EDNewSetParamPack:
@@ -71,6 +72,8 @@ class MessageNewSet(MessageEDBase):
             body_type=0x15)
         self.power = None
         self.lock = None
+        self.heat_start = None
+        self.heat_start_preservation = None
 
     @property
     def _body(self):
@@ -96,8 +99,16 @@ class MessageNewSet(MessageEDBase):
             pack_count += 1
             payload.extend(
                 EDNewSetParamPack.pack(
-                    param=NewSetTags.heat_start,  # heat_start
+                    param=NewSetTags.heat_start,
                     value=0x01 if self.heat_start else 0x00
+                )
+            )
+        if self.heat_start_preservation is not None:
+            pack_count += 1
+            payload.extend(
+                EDNewSetParamPack.pack(
+                    param=NewSetTags.heat_start_preservation,
+                    value=0x01 if self.heat_start_preservation else 0x00
                 )
             )
         payload[1] = pack_count
@@ -175,7 +186,8 @@ class EDMessageBodyff(MessageBody):
         self.in_tds = status.get("in_tds")
         self.out_tds = status.get("out_tds")
         self.life1 = status.get("life_1")
-        self.heat_start = bool(status.get("heat_start"))
+        self.heat_start = status.get("heat_start") == 0x01
+        self.heat_start_preservation = status.get("heat_start") == 0x02
         self.hot_pot_temperature = status.get("hot_pot_temperature")
 
     def parseStatus(self, body, status):

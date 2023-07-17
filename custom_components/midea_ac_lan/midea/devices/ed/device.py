@@ -26,6 +26,7 @@ class DeviceAttributes(StrEnum):
     life3 = "life3"
     child_lock = "child_lock"
     heat_start = "heat_start"
+    heat_start_preservation = "heat_start_preservation"
     hot_pot_temperature = "hot_pot_temperature"
 
 
@@ -67,6 +68,7 @@ class MideaEDDevice(MiedaDevice):
             DeviceAttributes.life3: None,
             DeviceAttributes.child_lock: False,
             DeviceAttributes.heat_start: False,
+            DeviceAttributes.heat_start_preservation: False,
             DeviceAttributes.hot_pot_temperature: None
         }
 
@@ -96,7 +98,8 @@ class MideaEDDevice(MiedaDevice):
             if attr in [
                 DeviceAttributes.power,
                 DeviceAttributes.child_lock,
-                DeviceAttributes.heat_start
+                DeviceAttributes.heat_start,
+                DeviceAttributes.heat_start_preservation
             ]:
                 message = MessageNewSet(self._device_protocol_version)
         else:

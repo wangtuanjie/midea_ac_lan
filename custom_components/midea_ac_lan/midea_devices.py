@@ -1191,6 +1191,11 @@ MIDEA_DEVICES = {
                 "name": "Start Heat",
                 "icon": "mdi:heat-wave"
             },
+            EDAttributes.heat_start_preservation: {
+                "type": "switch",
+                "name": "Start Heat Preservation",
+                "icon": "mdi:heat-wave"
+            },
             EDAttributes.hot_pot_temperature: {
                 "type": "sensor",
                 "name": "Hot Pot Temperature",

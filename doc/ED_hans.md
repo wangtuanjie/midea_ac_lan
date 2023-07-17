@@ -20,6 +20,7 @@ sensor.{DEVICEID}_water_yield | sensor | Water Yield | 总出水量
 lock.{DEVICEID}_child_lock | switch | 童锁
 switch.{DEVICEID}_power | switch | Power | 电源开关
 switch.{DEVICEID}_heat_start | switch | 加热
+switch.{DEVICEID}_heat_start_preservation | switch | 保温
 switch.{DEVICEID}_hot_pot_temperature | sensor | 热水温度
 
 ## 服务

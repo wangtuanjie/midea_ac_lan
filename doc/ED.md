@@ -20,6 +20,7 @@ sensor.{DEVICEID}_water_yield | sensor | Water Yield
 lock.{DEVICEID}_child_lock | switch | Child Lock
 switch.{DEVICEID}_power | switch | Power
 switch.{DEVICEID}_heat_start | switch | Heat Start
+switch.{DEVICEID}_heat_start_preservation | switch | Heat Start Preservation
 switch.{DEVICEID}_hot_pot_temperature | sensor | Hot Pot Temperature
 
 ## Service
