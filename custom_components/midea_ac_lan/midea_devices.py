@@ -92,6 +92,12 @@ MIDEA_DEVICES = {
                 "device_class": SensorDeviceClass.HUMIDITY,
                 "unit": PERCENTAGE,
                 "state_class": SensorStateClass.MEASUREMENT
+            },
+            A1Attributes.tank: {
+                "type": "binary_sensor",
+                "name": "Tank Status",
+                "icon": "mdi:alert-circle",
+                "device_class": BinarySensorDeviceClass.PROBLEM
             }
         }
     },
@@ -456,6 +462,44 @@ MIDEA_DEVICES = {
                 "unit": TEMP_CELSIUS,
                 "state_class": SensorStateClass.MEASUREMENT
             },
+            C3Attributes.status_tbh: {
+                "type": "binary_sensor",
+                "name": "TBH status",
+                "icon": "mdi:water-boiler",
+                "device_class": BinarySensorDeviceClass.RUNNING,
+            },
+            C3Attributes.status_dhw: {
+                "type": "binary_sensor",
+                "name": "DHW status",
+                "icon": "mdi:heat-pump",
+                "device_class": BinarySensorDeviceClass.RUNNING,
+            },
+            C3Attributes.status_ibh: {
+                "type": "binary_sensor",
+                "name": "IBH status",
+                "icon": "mdi:coolant-temperature",
+                "device_class": BinarySensorDeviceClass.RUNNING,
+            },
+            C3Attributes.status_heating: {
+                "type": "binary_sensor",
+                "name": "Heating status",
+                "icon": "mdi:heat-pump",
+                "device_class": BinarySensorDeviceClass.RUNNING,
+            },
+            C3Attributes.total_energy_consumption: {
+                "type": "sensor",
+                "name": "Total energy consumption",
+                "device_class": SensorDeviceClass.ENERGY,
+                "unit": ENERGY_KILO_WATT_HOUR,
+                "state_class": SensorStateClass.TOTAL_INCREASING
+            },
+            C3Attributes.total_produced_energy: {
+                "type": "sensor",
+                "name": "Total produced energy",
+                "device_class": SensorDeviceClass.ENERGY,
+                "unit": ENERGY_KILO_WATT_HOUR,
+                "state_class": SensorStateClass.TOTAL_INCREASING
+            },
         }
     },
     0xCA: {
@@ -749,11 +793,78 @@ MIDEA_DEVICES = {
                 "unit": TIME_MINUTES,
                 "state_class": SensorStateClass.MEASUREMENT
             },
+            DAAttributes.wash_time: {
+                "type": "sensor",
+                "name": "wash time",
+                "icon": "mdi:progress-clock",
+                "unit": TIME_MINUTES,
+                "state_class": SensorStateClass.MEASUREMENT
+            },
+            DAAttributes.soak_time: {
+                "type": "sensor",
+                "name": "soak time",
+                "icon": "mdi:progress-clock",
+                "unit": TIME_MINUTES,
+                "state_class": SensorStateClass.MEASUREMENT
+            },
+            DAAttributes.dehydration_time: {
+                "type": "sensor",
+                "name": "dehydration time",
+                "icon": "mdi:progress-clock",
+                "unit": TIME_MINUTES,
+                "state_class": SensorStateClass.MEASUREMENT
+            },
+            DAAttributes.dehydration_speed: {
+                "type": "sensor",
+                "name": "dehydration speed",
+                "icon": "mdi:speedometer"
+            },
+            DAAttributes.error_code: {
+                "type": "sensor",
+                "name": "error code",
+                "icon": "mdi:washing-machine-alert"
+            },
+            DAAttributes.rinse_count: {
+                "type": "sensor",
+                "name": "rinse count",
+                "icon": "mdi:water-sync"
+            },
+            DAAttributes.rinse_level: {
+                "type": "sensor",
+                "name": "rinse level",
+                "icon": "mdi:hydraulic-oil-level"
+            },
+            DAAttributes.wash_level: {
+                "type": "sensor",
+                "name": "rinse count",
+                "icon": "mdi:hydraulic-oil-level"
+            },
+            DAAttributes.wash_strength: {
+                "type": "sensor",
+                "name": "wash strength",
+                "icon": "mdi:network-strength-4-cog"
+            },
+            DAAttributes.softener: {
+                "type": "sensor",
+                "name": "softener",
+                "icon": "mdi:tshirt-crew"
+            },
+            DAAttributes.detergent: {
+                "type": "sensor",
+                "name": "detergent",
+                "icon": "mdi:spray-bottle"
+            },
+            DAAttributes.program: {
+                "type": "sensor",
+                "name": "Program",
+                "icon": "mdi:progress-wrench"
+            },
             DAAttributes.progress: {
                 "type": "sensor",
                 "name": "Progress",
                 "icon": "mdi:rotate-360"
             },
+            
             DAAttributes.power: {
                 "type": "switch",
                 "name": "Power",

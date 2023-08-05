@@ -117,6 +117,26 @@ class C3MessageBody(MessageBody):
         self.dhw_temp_min = body[data_offset + 20]
         self.tank_actual_temperature = body[data_offset + 21]
 
+class C3Notify1MessageBody(MessageBody):
+    def __init__(self, body, data_offset=0):
+        super().__init__(body)
+        status_byte = body[data_offset]
+        self.status_tbh = bool(status_byte & 0x08)
+        self.status_dhw = bool(status_byte & 0x04)
+        self.status_ibh = bool(status_byte & 0x02)
+        self.status_heating = bool(status_byte & 0x01)
+
+        self.total_energy_consumption = (
+            (body[data_offset + 1] << 32) +
+            (body[data_offset + 2] << 16) +
+            (body[data_offset + 3] << 8) +
+            (body[data_offset + 4]))
+
+        self.total_produced_energy = (
+            (body[data_offset + 5] << 32) +
+            (body[data_offset + 6] << 16) +
+            (body[data_offset + 7] << 8) +
+            (body[data_offset + 8]))
 
 class MessageC3Response(MessageResponse):
     def __init__(self, message):
@@ -125,4 +145,6 @@ class MessageC3Response(MessageResponse):
         if (self._message_type in [MessageType.notify1, MessageType.query] and self._body_type == 0x01) or \
                 self._message_type == MessageType.notify2:
             self._body = C3MessageBody(body, data_offset=1)
+        elif self._message_type == MessageType.notify1 and self._body_type == 0x04:
+            self._body = C3Notify1MessageBody(body, data_offset=1)
         self.set_attr()

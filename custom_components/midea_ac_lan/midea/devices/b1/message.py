@@ -6,7 +6,7 @@ from ...core.message import (
 )
 
 
-class MessageCFBase(MessageRequest):
+class MessageB1Base(MessageRequest):
     def __init__(self, device_protocol_version, message_type, body_type):
         super().__init__(
             device_protocol_version=device_protocol_version,
@@ -20,7 +20,7 @@ class MessageCFBase(MessageRequest):
         raise NotImplementedError
 
 
-class MessageQuery(MessageCFBase):
+class MessageQuery(MessageB1Base):
     def __init__(self, device_protocol_version):
         super().__init__(
             device_protocol_version=device_protocol_version,
@@ -53,5 +53,4 @@ class MessageB1Response(MessageResponse):
         if self._message_type in [MessageType.notify1, MessageType.query]:
             self._body = B1MessageBody(body)
         self.set_attr()
-
 
