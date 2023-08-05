@@ -40,6 +40,12 @@ class DeviceAttributes(StrEnum):
     target_temperature = "target_temperature"
     temperature_max = "temperature_max"
     temperature_min = "temperature_min"
+    status_heating = "status_heating"
+    status_dhw = "status_dhw"
+    status_tbh = "status_tbh"
+    status_ibh = "status_ibh"
+    total_energy_consumption = "total_energy_consumption"
+    total_produced_energy = "total_produced_energy"
 
 
 class MideaC3Device(MiedaDevice):
@@ -95,7 +101,13 @@ class MideaC3Device(MiedaDevice):
             DeviceAttributes.tank_actual_temperature: None,
             DeviceAttributes.target_temperature: [25, 25],
             DeviceAttributes.temperature_max: [0, 0],
-            DeviceAttributes.temperature_min: [0, 0]
+            DeviceAttributes.temperature_min: [0, 0],
+            DeviceAttributes.total_energy_consumption: None,
+            DeviceAttributes.status_heating: None,
+            DeviceAttributes.status_dhw: None,
+            DeviceAttributes.status_tbh: None,
+            DeviceAttributes.status_ibh: None,
+            DeviceAttributes.total_produced_energy: None,
         }
 
     def build_query(self):
@@ -109,7 +121,7 @@ class MideaC3Device(MiedaDevice):
             if hasattr(message, status.value):
                 self._attributes[status] = getattr(message, status.value)
                 new_status[status.value] = getattr(message, status.value)
-        if len(new_status) > 0:
+        if 'zone_temp_type' in new_status:
             for zone in [0, 1]:
                 if self._attributes[DeviceAttributes.zone_temp_type][zone]:  # Water temp mode
                     self._attributes[DeviceAttributes.target_temperature][zone] = \

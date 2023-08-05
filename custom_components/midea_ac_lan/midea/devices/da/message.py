@@ -5,7 +5,6 @@ from ...core.message import (
     MessageBody,
 )
 
-
 class MessageDABase(MessageRequest):
     def __init__(self, device_protocol_version, message_type, body_type):
         super().__init__(
@@ -47,7 +46,7 @@ class MessagePower(MessageDABase):
             power, 0xFF
         ])
 
-
+        
 class MessageStart(MessageDABase):
     def __init__(self, device_protocol_version):
         super().__init__(
@@ -75,6 +74,18 @@ class DAGeneralMessageBody(MessageBody):
         super().__init__(body)
         self.power = body[1] > 0
         self.start = True if body[2] in [2, 6] else False
+        self.error_code = body[24]
+        self.program = body[4]
+        self.wash_time = body[9]
+        self.soak_time = body[12]
+        self.dehydration_time = (body[10] & 0xf0) >> 4
+        self.dehydration_speed = (body[6] & 0xf0) >> 4
+        self.rinse_count = body[10] & 0xf
+        self.rinse_level = (body[5] & 0xf0) >> 4
+        self.wash_level = body[5] & 0xf
+        self.wash_strength = body[6] & 0xf
+        self.softener = (body[8] & 0xf0) >> 4
+        self.detergent = body[8] & 0x0f
         self.washing_data = body[3:15]
         self.progress = 0
         for i in range(1, 7):
